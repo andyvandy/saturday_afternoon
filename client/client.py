@@ -44,6 +44,7 @@ class Client(object):
         self.send_event({"attack":"fun increased by 10"})
         while True:
             msg = yield self.ws.read_message()
+            self.handle_msg(json.loads(msg))
             if msg is None:
                 print( "connection closed")
                 self.ws = None
@@ -56,10 +57,12 @@ class Client(object):
             self.ws.write_message("keep alive")
 
     
+    def handle_msg(self,msg):
+        print ("message",msg)
 
-    def send_event(self,message):
-        print("Sending json msg",message)
-        json_msg=json.dumps({"event":message})
+    def send_event(self,msg):
+        print("Sending json msg",msg)
+        json_msg=json.dumps({"event":msg})
         self.ws.write_message(json_msg)
 
 

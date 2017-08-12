@@ -8,9 +8,16 @@ PORT=8888
 
 from tornado import websocket, web, ioloop
 import json 
+from game_room import Game_room
 
 clients = []
+game_room=Game_room()
 
+def broadcast_tick():
+    snapshot= game_room.snapshot()
+    encoded_snapshot=json.dumps({"snapshot":snapshot})
+    for client in clients:
+        client.write_message(encoded_snapshot)
 
 class SocketHandler(websocket.WebSocketHandler):
     def check_origin(self, origin):
@@ -35,6 +42,8 @@ def main():
     app = web.Application([(r'/', SocketHandler)])
     app.listen(PORT)
     print("listiening on {0}".format(PORT))
+    ioloop.PeriodicCallback(broadcast_tick,50)
+    game_room.start_game()
     ioloop.IOLoop.current().start()
 
 
