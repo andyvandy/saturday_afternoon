@@ -3,6 +3,7 @@ import sys
 from settings import *
 from sprites import *
 from camera import *
+from gamemenu import *
 
 class Game:
     def __init__(self):
@@ -55,15 +56,17 @@ class Game:
                 if event.key == pg.K_ESCAPE:
                     self.quit()
 
-    def show_start_screen(self):
-        pass
-
     def show_go_screen(self):
         pass
 
-# create the game object
+# Create the Game Menu object that will call upon the game.
+
+gm = GameMenu()
+while gm.menu == True:
+    gm.run()
+
+# Create the Game Object
 g = Game()
-g.show_start_screen()
 while True:
     g.new()
     g.run()

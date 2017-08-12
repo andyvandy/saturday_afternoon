@@ -13,3 +13,8 @@ HEIGHT = 768
 FPS = 60
 TITLE = "Saturday Afternoon Bitch"
 
+#menu settings
+MENU_ITEMS = ('Start', 'Quit')
+MENU_FONTSIZE = 30
+MENU_FONTCOLOUR = BLACK
+
