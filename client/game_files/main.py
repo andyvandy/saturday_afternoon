@@ -64,7 +64,6 @@ class Game:
         self.camera.update()
 
     def draw(self):
-        self.screen.fill(WHITE)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         self.test_draw()
@@ -72,7 +71,7 @@ class Game:
         
 
     def test_draw(self):
-        print("drawing test",self.world["time"])
+        print("drawing test", self.world["time"])
         label = self.font.render("server time is:" +str(self.world["time"]), 1, self.font_color)
         self.screen.blit(label, (300, 262))
 
