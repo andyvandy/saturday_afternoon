@@ -25,7 +25,7 @@ class Game_room:
         self.game_timer=None
         self.current_game=None
 
-    def snapshot():
+    def snapshot(self):
         if self.current_game:
             return self.current_game.snapshot
         else:

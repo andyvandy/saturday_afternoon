@@ -14,6 +14,7 @@ clients = []
 game_room=Game_room()
 
 def broadcast_tick():
+    print("broadcasting game snapshot")
     snapshot= game_room.snapshot()
     encoded_snapshot=json.dumps({"snapshot":snapshot})
     for client in clients:
@@ -42,7 +43,8 @@ def main():
     app = web.Application([(r'/', SocketHandler)])
     app.listen(PORT)
     print("listiening on {0}".format(PORT))
-    ioloop.PeriodicCallback(broadcast_tick,50)
+    broadcast_timer=ioloop.PeriodicCallback(broadcast_tick,500)
+    broadcast_timer.start()
     game_room.start_game()
     ioloop.IOLoop.current().start()
 

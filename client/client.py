@@ -6,13 +6,21 @@ sources:
 from tornado.ioloop import IOLoop, PeriodicCallback
 from tornado import gen
 from tornado.websocket import websocket_connect
+from tornado.concurrent import run_on_executor
+from concurrent.futures import ThreadPoolExecutor   # `pip install futures` for python2
+
 import json
 
 import game_files
 from game_files.main import Game
 
+ADDRESS="ws://localhost:8888"
+MAX_WORKERS=16
+
 class Client(object):
+    executor = ThreadPoolExecutor(max_workers=MAX_WORKERS)
     def __init__(self, url, timeout):
+
         self.url = url
         self.timeout = timeout
         self.ioloop = IOLoop.instance()
@@ -20,9 +28,10 @@ class Client(object):
         self.game = None
         self.start_game()
         self.connect()
-        PeriodicCallback(self.keep_alive, 20000, io_loop=self.ioloop).start()
         self.ioloop.start()
 
+
+    @run_on_executor
     def start_game(self ):
         self.game = Game()
         self.game.start()
@@ -41,7 +50,7 @@ class Client(object):
 
     @gen.coroutine
     def run(self):
-        self.send_event({"attack":"fun increased by 10"})
+       # self.send_events({"attack":"fun increased by 10"})
         while True:
             msg = yield self.ws.read_message()
             self.handle_msg(json.loads(msg))
@@ -49,23 +58,28 @@ class Client(object):
                 print( "connection closed")
                 self.ws = None
                 break
-
-    def keep_alive(self):
-        if self.ws is None:
-            self.connect()
-        else:
-            self.ws.write_message("keep alive")
-
     
     def handle_msg(self,msg):
-        print ("message",msg)
+        if self.game == None: return
+        #return
+        print("got msg",msg)
+        #parsed_msg= json.loads(msg)
+       
+        if "snapshot" in msg:
+            print("got snapshot")
+            self.game.update_world_state(msg["snapshot"])
+        else:
+            print("sadsadasdasd")
+    def send_events(self,msg):
 
-    def send_event(self,msg):
         print("Sending json msg",msg)
-        json_msg=json.dumps({"event":msg})
+        json_msg=json.dumps({"event":self.game.events})
+        self.game.events=[]
         self.ws.write_message(json_msg)
 
 
 
 if __name__=="__main__":
-    client = Client("ws://localhost:8888", 5)
+    client = Client(ADDRESS, 5)
+    event_timer= PeriodicCallback(client.send_events,60) # every 15 ms call the main game loop
+    event_timer.start()

@@ -19,6 +19,9 @@ class Game:
         self.clock = pg.time.Clock()
         pg.key.set_repeat(500, 100)
         self.load_data()
+        self.game_events=[]
+        self.world={"time":0}
+        self.setup_rendering(font_size=MENU_FONTSIZE)
     def start (self):
         gm = GameMenu(game=self)
         gm.run()
@@ -29,6 +32,9 @@ class Game:
     def load_data(self):
         pass
 
+    def setup_rendering(self,font=None,font_size=MENU_FONTSIZE):
+        self.font = pg.font.SysFont(font, font_size)
+        self.font_color = MENU_FONTCOLOUR
     def new(self):
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
@@ -37,6 +43,7 @@ class Game:
     
     def run(self):
         # game loop - set self.playing = False to end the game
+        print("running game")
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
@@ -50,6 +57,7 @@ class Game:
 
     def update(self):
         # update portion of the game loop
+        self.send_test_event()
         self.all_sprites.update()
         self.camera.update()
 
@@ -57,7 +65,14 @@ class Game:
         self.screen.fill(WHITE)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+        self.test_draw()
         pg.display.flip()
+        
+
+    def test_draw(self):
+        print("drawing test",self.world["time"])
+        label = self.font.render("server time is:" +str(self.world["time"]), 1, self.font_color)
+        self.screen.blit(label, (300, 262))
 
     def events(self):
         # catch all events here
@@ -67,6 +82,10 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     self.quit()
+    def send_test_event(self):
+        self.game_events.append({"test":32323})
+    def update_world_state(self,state):
+        self.world=state
 
     def show_go_screen(self):
         pass
@@ -85,4 +104,4 @@ if __name__ == "__main__": # only run the game if the file is called directly
     while True:
         g.new()
         g.run()
-        g.show_go_screen()
+        g.show_go_screen()#

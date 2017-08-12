@@ -2,6 +2,7 @@
 This file houses the game menu. Bassically, it diverts the game loop to the game menu loop until the Start button is chosen
 which then activates the start_game fucntion, routing the game loop to the actual game loop. 
 """
+import os 
 
 import pygame as pg
 import sys
@@ -17,7 +18,8 @@ class GameMenu():
         self.game = game
         self.menu = True
         self.bg_color = bg_color
-        self.menubg = bg = pg.image.load("assets/bg.png")
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        self.menubg = bg = pg.image.load(os.path.join(dir_path,"assets/bg.png"))
         self.clock = self.game.clock
         self.screen = self.game.screen
         #font options
