@@ -19,6 +19,7 @@ class Game:
         self.clock = pg.time.Clock()
         pg.key.set_repeat(500, 100)
         self.load_data()
+    
     def start (self):
         gm = GameMenu(game=self)
         gm.run()
@@ -26,6 +27,7 @@ class Game:
             self.new()
             self.run()
             self.show_go_screen()
+
     def load_data(self):
         pass
 
