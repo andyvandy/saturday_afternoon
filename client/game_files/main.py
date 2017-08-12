@@ -58,23 +58,31 @@ class Game:
         sys.exit()
 
     def update(self):
+        print("updates")
         # update portion of the game loop
-        self.send_test_event()
+        #self.send_test_event()
         self.all_sprites.update()
         self.camera.update()
 
     def draw(self):
+        print("draw")
         self.screen.fill(WHITE)
-        for sprite in self.all_sprites:
-            self.screen.blit(sprite.image, self.camera.apply(sprite))
+        print("filled")
+        #for sprite in self.all_sprites:
+        #    self.screen.blit(sprite.image, self.camera.apply(sprite))
         self.test_draw()
         pg.display.flip()
         
 
     def test_draw(self):
-        print("drawing test",self.world["time"])
-        label = self.font.render("server time is:" +str(self.world["time"]), 1, self.font_color)
+        print("testdraw test")
+        print (self.world)
+        #print("drawing test",self.world["time"])
+        #label = self.font.render("server time is:" +str(self.world["time"]), 1, self.font_color)
+        label = self.font.render("server time is:" +str(1), 1, self.font_color)
+        #self.screen.blit(label, (300, 262))
         self.screen.blit(label, (300, 262))
+        print ("frew")
 
     def events(self):
         # catch all events here
@@ -87,7 +95,9 @@ class Game:
     def send_test_event(self):
         self.game_events.append({"test":32323})
     def update_world_state(self,state):
+
         self.world=state
+        print(self.world)
 
     def show_go_screen(self):
         pass

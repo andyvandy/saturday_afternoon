@@ -58,10 +58,10 @@ class Client(object):
                 print( "connection closed")
                 self.ws = None
                 break
-    
+    @gen.coroutine
     def handle_msg(self,msg):
         if self.game == None: return
-        #return
+       # return
         print("got msg",msg)
         #parsed_msg= json.loads(msg)
        
