@@ -20,6 +20,10 @@ class Game:
         pg.key.set_repeat(500, 100)
         self.load_data()
     def start (self):
+        gm = GameMenu(game=self)
+        while gm.menu == True:
+            gm.run()
+
         while True:
             self.new()
             self.run()
@@ -73,14 +77,12 @@ class Game:
 
 # Create the Game Object
 if __name__ == "__main__": # only run the game if the file is called directly
-    gm = GameMenu()
-    while gm.menu == True:
-        gm.run()
 
     print("switched")
     #while gm.menu == True:
     #    gm.run()
     g = Game()
+    g.start()
     while True:
         g.new()
         g.run()

@@ -1,3 +1,4 @@
+from main import Game
 import pygame as pg
 import sys
 try:
@@ -6,13 +7,12 @@ except ModuleNotFoundError:
     from .settings import *
 
 class GameMenu():
-    def __init__(self, bg_color=WHITE, font=None, font_size=MENU_FONTSIZE, font_color=BLACK, items=MENU_ITEMS):
-        pg.init()
+    def __init__(self, game, bg_color=WHITE, font=None, font_size=MENU_FONTSIZE, font_color=BLACK, items=MENU_ITEMS):
+        self.game = game
         self.menu = True
-        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.bg_color = bg_color
-        self.clock = pg.time.Clock()
-        pg.display.set_caption(TITLE)
+        self.clock = self.game.clock
+        self.screen = self.game.screen
         #font options
         self.font = pg.font.SysFont(font, font_size)
         self.font_color = MENU_FONTCOLOUR
@@ -51,7 +51,7 @@ class GameMenu():
                         
  
             # Redraw the background
-            self.screen.fill(self.bg_color)
+            self.game.screen.fill(self.bg_color)
 
             for index, label in enumerate(self.items):
                 if index == 0:
