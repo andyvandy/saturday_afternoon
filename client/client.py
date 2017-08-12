@@ -6,6 +6,7 @@ sources:
 from tornado.ioloop import IOLoop, PeriodicCallback
 from tornado import gen
 from tornado.websocket import websocket_connect
+import json
 
 class Client(object):
     def __init__(self, url, timeout):
@@ -30,6 +31,7 @@ class Client(object):
 
     @gen.coroutine
     def run(self):
+        self.send_event({"attack":"fun increased by 10"})
         while True:
             msg = yield self.ws.read_message()
             if msg is None:
@@ -42,6 +44,11 @@ class Client(object):
             self.connect()
         else:
             self.ws.write_message("keep alive")
+
+    def send_event(self,message):
+        print("Sending json msg",message)
+        json_msg=json.dumps({"event":message})
+        self.ws.write_message(json_msg)
 
 
 if __name__=="__main__":
