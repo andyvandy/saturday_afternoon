@@ -26,7 +26,8 @@ class GameMenu():
             self.items.append(label)
 
     def start_game(self):
-        self.menu = False
+        print("Starting game")
+        return
 
     def run(self):
         mainloop = True
@@ -46,7 +47,6 @@ class GameMenu():
                     mpos = pg.mouse.get_pos()
                     print(mpos)
                     if mpos[0] > 445 and mpos[0] < 545 and mpos[1] > 465 and mpos[1] < 495:
-                        print("Starting Game")
                         mainloop = False
                         self.start_game()
                     if mpos[0] > 445 and mpos[0] < 545 and mpos[1] > 565 and mpos[1] < 595:
