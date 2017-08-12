@@ -1,9 +1,15 @@
 import pygame as pg
 import sys
-from settings import *
-from sprites import *
-from camera import *
-from gamemenu import *
+try:
+    from settings import *
+    from sprites import *
+    from camera import *
+    from gamemenu import *
+except ModuleNotFoundError:
+    from .settings import *
+    from .sprites import *
+    from .camera import *
+    from .gamemenu import *
 
 class Game:
     def __init__(self):
@@ -13,7 +19,11 @@ class Game:
         self.clock = pg.time.Clock()
         pg.key.set_repeat(500, 100)
         self.load_data()
-
+    def start (self):
+        while True:
+            self.new()
+            self.run()
+            self.show_go_screen()
     def load_data(self):
         pass
 
@@ -61,13 +71,15 @@ class Game:
 
 # Create the Game Menu object that will call upon the game.
 
-gm = GameMenu()
-while gm.menu == True:
-    gm.run()
+
 
 # Create the Game Object
-g = Game()
-while True:
-    g.new()
-    g.run()
-    g.show_go_screen()
+if __name__ == "__main__": # only run the game if the file is called directly
+    gm = GameMenu()
+    #while gm.menu == True:
+    #    gm.run()
+    g = Game()
+    while True:
+        g.new()
+        g.run()
+        g.show_go_screen()

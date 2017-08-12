@@ -1,5 +1,9 @@
 import pygame as pg
-from settings import *
+try:
+    from settings import *
+except ModuleNotFoundError:
+    from .settings import *
+
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game):
