@@ -21,9 +21,7 @@ class Game:
         self.load_data()
     def start (self):
         gm = GameMenu(game=self)
-        while gm.menu == True:
-            gm.run()
-
+        gm.run()
         while True:
             self.new()
             self.run()
@@ -82,6 +80,7 @@ if __name__ == "__main__": # only run the game if the file is called directly
     #while gm.menu == True:
     #    gm.run()
     g = Game()
+    print("start")
     g.start()
     while True:
         g.new()

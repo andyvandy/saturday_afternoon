@@ -47,6 +47,7 @@ class GameMenu():
                     print(mpos)
                     if mpos[0] > 445 and mpos[0] < 545 and mpos[1] > 465 and mpos[1] < 495:
                         print("Starting Game")
+                        mainloop = False
                         self.start_game()
                     if mpos[0] > 445 and mpos[0] < 545 and mpos[1] > 565 and mpos[1] < 595:
                         print("Exiting Game")
