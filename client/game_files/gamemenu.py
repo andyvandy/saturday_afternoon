@@ -22,7 +22,7 @@ class GameMenu():
             self.items.append(label)
 
     def start_game(self):
-        self.menu = False     
+        self.menu = False
 
     def run(self):
         mainloop = True
