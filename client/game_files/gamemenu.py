@@ -12,7 +12,7 @@ except ModuleNotFoundError:
     from .settings import *
 
 class GameMenu():
-    def __init__(self, game, bg_color=WHITE, font=None, font_size=MENU_FONTSIZE, font_color=BLACK, menuitems=MENU_ITEMS):
+    def __init__(self, game, bg_color=WHITE, font=None, font_size=MENU_FONTSIZE, font_color=LIMEGREEN, menuitems=MENU_ITEMS):
         self.font_color = font_color
         self.menuitems = menuitems
         self.game = game
@@ -27,7 +27,7 @@ class GameMenu():
         self.font_color = MENU_FONTCOLOUR
         self.items = []
         for item in menuitems:
-            label = self.font.render(item, 1, font_color)
+            label = self.font.render(item, 1, self.font_color)
             self.items.append(label)
 
     def start_game(self):
