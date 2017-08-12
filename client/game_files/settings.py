@@ -17,4 +17,3 @@ TITLE = "Saturday Afternoon Bitch"
 MENU_ITEMS = ['Saturday Afternoon','Start', 'Quit']
 MENU_FONTSIZE = 60
 MENU_FONTCOLOUR = BLACK
-
