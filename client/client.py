@@ -8,15 +8,25 @@ from tornado import gen
 from tornado.websocket import websocket_connect
 import json
 
+import game_files
+from game_files.main import Game
+
 class Client(object):
     def __init__(self, url, timeout):
         self.url = url
         self.timeout = timeout
         self.ioloop = IOLoop.instance()
         self.ws = None
+        self.game = None
+        self.start_game()
         self.connect()
         PeriodicCallback(self.keep_alive, 20000, io_loop=self.ioloop).start()
         self.ioloop.start()
+
+    def start_game(self ):
+        self.game = Game()
+        self.game.start()
+
 
     @gen.coroutine
     def connect(self):
@@ -45,10 +55,13 @@ class Client(object):
         else:
             self.ws.write_message("keep alive")
 
+    
+
     def send_event(self,message):
         print("Sending json msg",message)
         json_msg=json.dumps({"event":message})
         self.ws.write_message(json_msg)
+
 
 
 if __name__=="__main__":

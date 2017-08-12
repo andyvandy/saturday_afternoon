@@ -1,6 +1,9 @@
 import pygame as pg
 import sys
-from settings import *
+try:
+    from settings import *
+except ModuleNotFoundError:
+    from .settings import *
 
 class GameMenu():
     def __init__(self, bg_color=WHITE, font=None, font_size=MENU_FONTSIZE, font_color=BLACK, items=MENU_ITEMS):
