@@ -70,8 +70,11 @@ class Game:
         pass
 
 # Create the Game Menu object that will call upon the game.
+gm = GameMenu()
+while gm.menu == True:
+    gm.run()
 
-
+print("switched")
 
 # Create the Game Object
 if __name__ == "__main__": # only run the game if the file is called directly

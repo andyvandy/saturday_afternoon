@@ -27,7 +27,7 @@ class GameMenu():
     def run(self):
         mainloop = True
         while mainloop:
-            # Limit frame speed to 50 FPS
+            # Limit frame speed
             self.clock.tick(FPS)
  
             for event in pg.event.get():
