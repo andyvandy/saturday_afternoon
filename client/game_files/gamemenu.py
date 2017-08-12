@@ -1,3 +1,7 @@
+"""
+This file houses the game menu. Bassically, it diverts the game loop to the game menu loop until the Start button is chosen
+which then activates the start_game fucntion, routing the game loop to the actual game loop. 
+"""
 from main import Game
 import pygame as pg
 import sys
