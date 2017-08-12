@@ -22,6 +22,7 @@ class Game:
         self.game_events=[]
         self.world={"time":0}
         self.setup_rendering(font_size=MENU_FONTSIZE)
+
     def start (self):
         gm = GameMenu(game=self)
         gm.run()
@@ -29,6 +30,7 @@ class Game:
             self.new()
             self.run()
             self.show_go_screen()
+
     def load_data(self):
         pass
 
