@@ -82,7 +82,7 @@ class Game:
         print (self.world)
         #print("drawing test",self.world["time"])
         #label = self.font.render("server time is:" +str(self.world["time"]), 1, self.font_color)
-        label = self.font.render("server time is:" +str(1), 1, self.font_color)
+        label = self.font.render("server time is:" +str(self.world), 1, self.font_color)
         #self.screen.blit(label, (300, 262))
 
         self.screen.blit(label, (300, 262))
